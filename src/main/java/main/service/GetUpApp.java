@@ -18,7 +18,7 @@ public class GetUpApp {
                 CloseableHttpClient httpClient = null;
                 CloseableHttpResponse httpResponse = null;
                 try {
-                    Thread.sleep(1800000);
+                    Thread.sleep(1200000);
                     httpClient = HttpClients.createDefault();
                     HttpGet httpGet = new HttpGet("https://tochkaserver.herokuapp.com/admin/?login=admin&password=admin1");
                     httpResponse = httpClient.execute(httpGet);

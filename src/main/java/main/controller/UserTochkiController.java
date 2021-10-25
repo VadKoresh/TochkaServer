@@ -26,13 +26,9 @@ public class UserTochkiController {
     @PostMapping("/")
     public ResponseEntity addUser(@RequestBody UserTochkiEntity userTochkiEntity){
         try {
-            UserTochkiEntity userTochkiEntity1 = userTochkiRepository.save(userTochkiEntity);
-            WinnerEntity winnerEntity = new WinnerEntity();
-            winnerEntity.setUserTochkiEntity(userTochkiEntity1);
-            winnerRepository.save(winnerEntity);
-            return ResponseEntity.ok("всё ок");
+            return ResponseEntity.ok(userTochkiService.addNewUserTochki(userTochkiEntity));
         } catch (Exception e){
-            return ResponseEntity.badRequest().body("всё херня");
+            return ResponseEntity.badRequest().body("Что-то пошло не так. Ошибка №1");
         }
     }
 

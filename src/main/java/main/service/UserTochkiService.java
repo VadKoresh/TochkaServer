@@ -17,6 +17,23 @@ public class UserTochkiService {
 
     @Autowired
     private UserTochkiRepository userTochkiRepository;
+    @Autowired
+    private WinnerService winnerService;
+
+    public String addNewUserTochki(UserTochkiEntity userTochkiEntity){
+        UserTochkiEntity userWithId = userTochkiRepository.findByNumberPhone(userTochkiEntity.getNumberPhone());
+        if (userWithId == null) {
+            userWithId = userTochkiRepository.save(userTochkiEntity);
+            if (userWithId.getNumberPhone() != null) {
+                winnerService.addNewWinner(userWithId);
+                return "Пользователь успешно зарегистрирован!";
+            } else {
+                return "Запись прошла успешно";
+            }
+        } else {
+            return "Пользователь с данный номером телефона уже зарегистрирован!";
+        }
+    }
 
     public List<UserTochkiModel> getAll() {
         Iterable<UserTochkiEntity> all = userTochkiRepository.findAll();

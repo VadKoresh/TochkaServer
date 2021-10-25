@@ -33,6 +33,12 @@ public class WinnerService {
                 .collect(Collectors.toList());
     }
 
+    public void addNewWinner(UserTochkiEntity userTochkiEntity){
+        WinnerEntity winnerEntity = winnerRepository.save(new WinnerEntity());
+        winnerEntity.setUserTochkiEntity(userTochkiEntity);
+        winnerRepository.save(winnerEntity);
+    }
+
     public Winner updateWinner(UserTochkiEntity userTochkiEntity, int scoreUpdate){
         /**
          * TODO
