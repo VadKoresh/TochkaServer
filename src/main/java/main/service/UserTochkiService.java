@@ -44,6 +44,15 @@ public class UserTochkiService {
         return userTochkiModelArrayList;
     }
 
+    public List<UserTochkiEntity> getAllForDesktopApp() {
+        Iterable<UserTochkiEntity> all = userTochkiRepository.findAll();
+        ArrayList<UserTochkiEntity> userTochkiModelArrayList = new ArrayList<>();
+        for (UserTochkiEntity userTochkiEntity : all) {
+            userTochkiModelArrayList.add(userTochkiEntity);
+        }
+        return userTochkiModelArrayList;
+    }
+
     public UserTochkiEntity getOneForPage(long id) throws PlayerNotFoundException {
         UserTochkiEntity userTochkiEntity = null;
         Optional<UserTochkiEntity> byId = userTochkiRepository.findById(id);

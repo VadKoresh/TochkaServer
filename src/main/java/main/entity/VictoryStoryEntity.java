@@ -1,5 +1,7 @@
 package main.entity;
 
+import main.modelConvert.VictoryStoryConvert;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -58,5 +60,14 @@ public class VictoryStoryEntity {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public static VictoryStoryEntity toConvert(VictoryStoryConvert victoryStoryConvert){
+        VictoryStoryEntity victoryStoryEntity = new VictoryStoryEntity();
+        victoryStoryEntity.setScore(victoryStoryConvert.getScore());
+        victoryStoryEntity.setDate(LocalDateTime.parse(victoryStoryConvert.getDate()));
+        victoryStoryEntity.setUserTochkiEntity(victoryStoryConvert.getUserTochkiEntity());
+        victoryStoryEntity.setBoardGameEntity(victoryStoryConvert.getBoardGameEntity());
+        return victoryStoryEntity;
     }
 }

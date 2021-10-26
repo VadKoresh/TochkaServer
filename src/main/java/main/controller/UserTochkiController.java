@@ -65,4 +65,14 @@ public class UserTochkiController {
             return ResponseEntity.badRequest().body("Произошла ошибка #1052");
         }
     }
+
+    @GetMapping("/4desktopapp")
+    public ResponseEntity getAllForDesktopApp(){
+        try {
+            return ResponseEntity.ok(userTochkiService.getAllForDesktopApp());
+        }
+        catch (Exception exception) {
+            return ResponseEntity.badRequest().body("Произошла ошибка #1052");
+        }
+    }
 }

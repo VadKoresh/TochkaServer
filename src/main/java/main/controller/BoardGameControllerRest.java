@@ -1,13 +1,11 @@
 package main.controller;
 
 import javassist.NotFoundException;
+import main.entity.BoardGameEntity;
 import main.service.BoardGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/boardgame")
@@ -15,6 +13,11 @@ public class BoardGameControllerRest {
 
     @Autowired
     private BoardGameService boardGameService;
+
+    @PostMapping("/")
+    public ResponseEntity addNewBoardGame(@RequestBody BoardGameEntity boardGameEntity){
+        return ResponseEntity.ok(boardGameService.addNewBoardGame(boardGameEntity));
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity getOneBoardGame(@PathVariable int id){
@@ -32,6 +35,16 @@ public class BoardGameControllerRest {
     public ResponseEntity getAllBoardGame(){
         try {
             return ResponseEntity.ok(boardGameService.getAllBoardGame());
+        }
+        catch (Exception exception) {
+            return ResponseEntity.badRequest().body("Произошла ошибка #1059");
+        }
+    }
+
+    @GetMapping("/4desktopapp")
+    public ResponseEntity getAllBoardGameForDesktopApp(){
+        try {
+            return ResponseEntity.ok(boardGameService.getAllBoardGameForDesktopApp());
         }
         catch (Exception exception) {
             return ResponseEntity.badRequest().body("Произошла ошибка #1059");

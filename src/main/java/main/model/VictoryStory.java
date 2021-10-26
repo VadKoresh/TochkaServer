@@ -2,6 +2,7 @@ package main.model;
 
 import main.entity.VictoryStoryEntity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class VictoryStory {
@@ -41,6 +42,7 @@ public class VictoryStory {
     }
 
     public void setDate(LocalDateTime date) {
+
         this.date = date.getDayOfMonth() + "." + date.getMonthValue() + "." + date.getYear();
     }
 

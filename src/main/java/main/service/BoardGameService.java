@@ -18,6 +18,16 @@ public class BoardGameService {
     @Autowired
     private BoardGameRepository boardGameRepository;
 
+    public String addNewBoardGame(BoardGameEntity boardGameEntity){
+        BoardGameEntity boardGameEntityNew = boardGameRepository.findByName(boardGameEntity.getName());
+        if (boardGameEntityNew != null){
+            return "Данная игра уже внесена в реестр!";
+        }else {
+            boardGameRepository.save(boardGameEntity);
+            return  boardGameEntity.getName() + " успешно сохранена!";
+        }
+    }
+
     public BoardGameEntity getOneBoardGame(int id) throws NotFoundException {
         Optional<BoardGameEntity> byId = boardGameRepository.findById(id);
         BoardGameEntity boardGameEntity = null;
@@ -32,6 +42,15 @@ public class BoardGameService {
         ArrayList<BoardGameModel> boardGameArrayList = new ArrayList<>();
         for (BoardGameEntity boardGameEntity : all){
             boardGameArrayList.add(BoardGameModel.toModel(boardGameEntity));
+        }
+        return boardGameArrayList;
+    }
+
+    public List<BoardGameEntity> getAllBoardGameForDesktopApp(){
+        Iterable<BoardGameEntity> all = boardGameRepository.findAll();
+        ArrayList<BoardGameEntity> boardGameArrayList = new ArrayList<>();
+        for (BoardGameEntity boardGameEntity : all){
+            boardGameArrayList.add(boardGameEntity);
         }
         return boardGameArrayList;
     }
