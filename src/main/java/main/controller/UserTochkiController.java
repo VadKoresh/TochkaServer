@@ -32,6 +32,15 @@ public class UserTochkiController {
         }
     }
 
+    @PostMapping("/addwithvisit")
+    public ResponseEntity addNullUser(@RequestBody UserTochkiEntity userTochkiEntity){
+        try {
+            return ResponseEntity.ok(userTochkiService.addNullUser(userTochkiEntity));
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body("Что-то пошло не так. Ошибка №1");
+        }
+    }
+
     @GetMapping("/4page/{id}")
     public ResponseEntity getOneForPage(@PathVariable long id){
         try {
@@ -63,6 +72,19 @@ public class UserTochkiController {
         }
         catch (Exception exception) {
             return ResponseEntity.badRequest().body("Произошла ошибка #1052");
+        }
+    }
+
+    /**
+     * Поиск пользователя по номеру телефона
+     */
+    @GetMapping("/gettophone")
+    public ResponseEntity findUserTochkiToNumberPhone(@RequestHeader String numberPhone){
+        try {
+            return ResponseEntity.ok(userTochkiService.findUserTochkiToNumberPhone(numberPhone));
+        }
+        catch (Exception exception) {
+            return ResponseEntity.badRequest().body("Сервер: " + exception.getMessage());
         }
     }
 

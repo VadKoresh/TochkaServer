@@ -35,6 +35,14 @@ public class UserTochkiService {
         }
     }
 
+    public UserTochkiEntity addNullUser(UserTochkiEntity userTochkiEntity){
+        UserTochkiEntity userWithId = userTochkiRepository.save(userTochkiEntity);
+        if (userWithId.getNumberPhone() != null){
+            winnerService.addNewWinner(userWithId);
+        }
+        return userWithId;
+    }
+
     public List<UserTochkiModel> getAll() {
         Iterable<UserTochkiEntity> all = userTochkiRepository.findAll();
         ArrayList<UserTochkiModel> userTochkiModelArrayList = new ArrayList<>();
@@ -71,5 +79,16 @@ public class UserTochkiService {
         }
         userTochkiEntity = byId.get();
         return UserTochkiModel.toModel(userTochkiEntity);
+    }
+
+    /**
+     * Обработка ошибки на стороне приложения
+     */
+    public UserTochkiEntity findUserTochkiToNumberPhone(String numberPhone) throws PlayerNotFoundException {
+        UserTochkiEntity userTochkiEntity = userTochkiRepository.findByNumberPhone(numberPhone);
+        if (userTochkiEntity == null){
+            throw new PlayerNotFoundException("Пользователь не найден!");
+        }
+        return userTochkiEntity;
     }
 }
