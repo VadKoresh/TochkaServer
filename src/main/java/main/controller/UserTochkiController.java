@@ -37,7 +37,7 @@ public class UserTochkiController {
         try {
             return ResponseEntity.ok(userTochkiService.addNullUser(userTochkiEntity));
         } catch (Exception e){
-            return ResponseEntity.badRequest().body("Что-то пошло не так. Ошибка №1");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -75,6 +75,16 @@ public class UserTochkiController {
         }
     }
 
+    @GetMapping("/nullphoneall")
+    public ResponseEntity getAllNull(){
+        try {
+            return ResponseEntity.ok(userTochkiService.getAllNull());
+        }
+        catch (Exception exception) {
+            return ResponseEntity.badRequest().body("Произошла ошибка #1052");
+        }
+    }
+
     /**
      * Поиск пользователя по номеру телефона
      */
@@ -95,6 +105,15 @@ public class UserTochkiController {
         }
         catch (Exception exception) {
             return ResponseEntity.badRequest().body("Произошла ошибка #1052");
+        }
+    }
+
+    @PutMapping("/")
+    public ResponseEntity editOnePlayer(@RequestBody UserTochkiEntity userTochkiEntity){
+        try {
+            return ResponseEntity.ok(userTochkiService.editUser(userTochkiEntity));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Сервер: " + e.getMessage());
         }
     }
 }

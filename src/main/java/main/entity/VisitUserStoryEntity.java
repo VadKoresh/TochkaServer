@@ -24,6 +24,9 @@ public class VisitUserStoryEntity {
     private boolean paid;
     @Column(name = "payment_type")
     private String paymentType;
+    @ManyToOne
+    @JoinColumn(name = "id_intent")
+    private IntentVisitEntity intentVisitEntity;
 
     public long getId() {
         return id;
@@ -81,6 +84,14 @@ public class VisitUserStoryEntity {
         this.paymentType = paymentType;
     }
 
+    public IntentVisitEntity getIntentVisitEntity() {
+        return intentVisitEntity;
+    }
+
+    public void setIntentVisitEntity(IntentVisitEntity intentVisitEntity) {
+        this.intentVisitEntity = intentVisitEntity;
+    }
+
     public static VisitUserStoryEntity fromJsonToEntity(VisitUserStoryConvertTo visitUserStoryConvertTo){
         VisitUserStoryEntity visitUserStoryEntity1 = new VisitUserStoryEntity();
         visitUserStoryEntity1.setId(visitUserStoryConvertTo.getId());
@@ -91,6 +102,7 @@ public class VisitUserStoryEntity {
         visitUserStoryEntity1.setIncome(visitUserStoryConvertTo.getIncome());
         visitUserStoryEntity1.setPaid(visitUserStoryConvertTo.isPaid());
         visitUserStoryEntity1.setPaymentType(visitUserStoryConvertTo.getPaymentType());
+        visitUserStoryEntity1.setIntentVisitEntity(visitUserStoryConvertTo.getIntentVisitEntity());
         return visitUserStoryEntity1;
     }
 }

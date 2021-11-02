@@ -12,7 +12,7 @@ public interface VisitUserStoryRepository extends CrudRepository<VisitUserStoryE
 
     default List<VisitUserStoryEntity> findByCreationDate(LocalDateTime localDateTime) {
         if (localDateTime.getHour() < 3){
-            return findAllByTimeInBetween(localDateTime.toLocalDate().minusDays(1).atStartOfDay().plusHours(12), localDateTime);
+            return findAllByTimeInBetween(localDateTime.toLocalDate().minusDays(1).atStartOfDay().plusHours(10), localDateTime);
         }
         return findAllByTimeInBetween(localDateTime.toLocalDate().atStartOfDay(), localDateTime.toLocalDate().plusDays(1).atStartOfDay());
     }

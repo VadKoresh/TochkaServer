@@ -20,7 +20,7 @@ public class UserTochkiService {
     @Autowired
     private WinnerService winnerService;
 
-    public String addNewUserTochki(UserTochkiEntity userTochkiEntity){
+    public String addNewUserTochki(UserTochkiEntity userTochkiEntity) {
         UserTochkiEntity userWithId = userTochkiRepository.findByNumberPhone(userTochkiEntity.getNumberPhone());
         if (userWithId == null) {
             userWithId = userTochkiRepository.save(userTochkiEntity);
@@ -31,16 +31,26 @@ public class UserTochkiService {
                 return "Запись прошла успешно";
             }
         } else {
-            return "Пользователь с данный номером телефона уже зарегистрирован!";
+            return "Сервер: Данный номером телефона уже зарегистрирован пользователем: " + userWithId.getName() +
+                    " " + userWithId.getSurname() + " !";
         }
     }
 
-    public UserTochkiEntity addNullUser(UserTochkiEntity userTochkiEntity){
-        UserTochkiEntity userWithId = userTochkiRepository.save(userTochkiEntity);
-        if (userWithId.getNumberPhone() != null){
-            winnerService.addNewWinner(userWithId);
+    public UserTochkiEntity addNullUser(UserTochkiEntity userTochkiEntity) throws PlayerNotFoundException {
+        UserTochkiEntity userWithId = null;
+        if (userTochkiEntity.getNumberPhone() == null) {
+            return userTochkiRepository.save(userTochkiEntity);
+        } else {
+            userWithId = userTochkiRepository.findByNumberPhone(userTochkiEntity.getNumberPhone());
+            if (userWithId != null) {
+                throw new PlayerNotFoundException("Сервер: данный номер телефона уже был зарегистрирован пользователем:" +
+                        " " + userWithId.getName() + " " + userWithId.getSurname() + " !");
+            } else {
+                userWithId = userTochkiRepository.save(userTochkiEntity);
+                winnerService.addNewWinner(userWithId);
+                return userWithId;
+            }
         }
-        return userWithId;
     }
 
     public List<UserTochkiModel> getAll() {
@@ -49,6 +59,12 @@ public class UserTochkiService {
         for (UserTochkiEntity userTochkiEntity : all) {
             userTochkiModelArrayList.add(UserTochkiModel.toModel(userTochkiEntity));
         }
+        return userTochkiModelArrayList;
+    }
+
+    public List<UserTochkiEntity> getAllNull() {
+        List<UserTochkiEntity> userTochkiModelArrayList = userTochkiRepository.findAllByNumberPhoneIsNotNull();
+
         return userTochkiModelArrayList;
     }
 
@@ -86,9 +102,14 @@ public class UserTochkiService {
      */
     public UserTochkiEntity findUserTochkiToNumberPhone(String numberPhone) throws PlayerNotFoundException {
         UserTochkiEntity userTochkiEntity = userTochkiRepository.findByNumberPhone(numberPhone);
-        if (userTochkiEntity == null){
+        if (userTochkiEntity == null) {
             throw new PlayerNotFoundException("Пользователь не найден!");
         }
         return userTochkiEntity;
+    }
+
+    public String editUser(UserTochkiEntity userTochkiEntity) throws Exception {
+        userTochkiRepository.save(userTochkiEntity);
+        return "Пользователь зарегистрирован!";
     }
 }

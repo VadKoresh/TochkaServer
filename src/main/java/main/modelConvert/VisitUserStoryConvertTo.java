@@ -1,5 +1,6 @@
 package main.modelConvert;
 
+import main.entity.IntentVisitEntity;
 import main.entity.UserTochkiEntity;
 import main.entity.VisitUserStoryEntity;
 
@@ -12,6 +13,7 @@ public class VisitUserStoryConvertTo {
     private double income;
     private boolean paid;
     private String paymentType;
+    private IntentVisitEntity intentVisitEntity;
 
     public static VisitUserStoryConvertTo convertTo(VisitUserStoryEntity visitUserStoryEntity){
         VisitUserStoryConvertTo visitUserStoryConvertTo = new VisitUserStoryConvertTo();
@@ -23,6 +25,7 @@ public class VisitUserStoryConvertTo {
         visitUserStoryConvertTo.setIncome(visitUserStoryEntity.getIncome());
         visitUserStoryConvertTo.setPaid(visitUserStoryEntity.isPaid());
         visitUserStoryConvertTo.setPaymentType(visitUserStoryEntity.getPaymentType());
+        visitUserStoryConvertTo.setIntentVisitEntity(visitUserStoryEntity.getIntentVisitEntity());
         return visitUserStoryConvertTo;
     }
 
@@ -80,5 +83,13 @@ public class VisitUserStoryConvertTo {
 
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public IntentVisitEntity getIntentVisitEntity() {
+        return intentVisitEntity;
+    }
+
+    public void setIntentVisitEntity(IntentVisitEntity intentVisitEntity) {
+        this.intentVisitEntity = intentVisitEntity;
     }
 }
