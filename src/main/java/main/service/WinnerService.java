@@ -36,6 +36,7 @@ public class WinnerService {
     public void addNewWinner(UserTochkiEntity userTochkiEntity){
         WinnerEntity winnerEntity = winnerRepository.save(new WinnerEntity());
         winnerEntity.setUserTochkiEntity(userTochkiEntity);
+        winnerEntity.setScore(5);
         winnerRepository.save(winnerEntity);
     }
 
