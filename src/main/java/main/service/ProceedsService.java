@@ -6,8 +6,7 @@ import main.repository.ProceedsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
 import java.util.ArrayList;
 
 @Service
@@ -19,7 +18,10 @@ public class ProceedsService {
     public ProceedsConvert getCreateOneProceeds(String localDate){
         LocalDate localDate1 = LocalDate.parse(localDate);
         ProceedsEntity proceedsEntity = null;
-        if (LocalTime.now().getHour() < 3){
+        LocalDateTime localDateTime = LocalDateTime.now();
+        ZonedDateTime ldtZoned = localDateTime.atZone(ZoneId.systemDefault());
+        ZonedDateTime utcZoned = ldtZoned.withZoneSameInstant(ZoneId.of("UTC-3"));
+        if (utcZoned.toLocalDateTime().getHour() < 3){
             proceedsEntity = proceedsRepository.findByDate(localDate1.minusDays(1));
             if (proceedsEntity == null){
                 proceedsEntity = new ProceedsEntity();
