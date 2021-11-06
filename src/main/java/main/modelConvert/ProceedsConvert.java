@@ -9,6 +9,7 @@ public class ProceedsConvert {
     private double countMoney;
     private double cashMoney;
     private double cardMoney;
+    private double transferMoney;
 
     public static ProceedsConvert fromJsonToEntity(ProceedsEntity proceedsEntity){
         ProceedsConvert proceedsConv = new ProceedsConvert();
@@ -17,6 +18,7 @@ public class ProceedsConvert {
         proceedsConv.setCountMoney(proceedsEntity.getCountMoney());
         proceedsConv.setCashMoney(proceedsEntity.getCashMoney());
         proceedsConv.setCardMoney(proceedsEntity.getCardMoney());
+        proceedsConv.setTransferMoney(proceedsEntity.getTransferMoney());
         return proceedsConv;
     }
 
@@ -58,5 +60,13 @@ public class ProceedsConvert {
 
     public void setCardMoney(double cardMoney) {
         this.cardMoney = cardMoney;
+    }
+
+    public double getTransferMoney() {
+        return transferMoney;
+    }
+
+    public void setTransferMoney(double transferMoney) {
+        this.transferMoney = transferMoney;
     }
 }

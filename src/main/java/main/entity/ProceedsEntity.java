@@ -20,6 +20,8 @@ public class ProceedsEntity {
     private double cashMoney;
     @Column(name = "card_money")
     private double cardMoney;
+    @Column(name = "transfer_money")
+    private double transferMoney;
 
     public long getId() {
         return id;
@@ -61,6 +63,14 @@ public class ProceedsEntity {
         this.cardMoney = cardMoney;
     }
 
+    public double getTransferMoney() {
+        return transferMoney;
+    }
+
+    public void setTransferMoney(double transferMoney) {
+        this.transferMoney = transferMoney;
+    }
+
     public static ProceedsEntity fromJsonToEntity(ProceedsConvert proceedsConvert){
         ProceedsEntity proceedsEntity = new ProceedsEntity();
         proceedsEntity.setId(proceedsConvert.getId());
@@ -68,6 +78,7 @@ public class ProceedsEntity {
         proceedsEntity.setCountMoney(proceedsConvert.getCountMoney());
         proceedsEntity.setCashMoney(proceedsConvert.getCashMoney());
         proceedsEntity.setCardMoney(proceedsConvert.getCardMoney());
+        proceedsEntity.setTransferMoney(proceedsConvert.getTransferMoney());
         return proceedsEntity;
     }
 }
