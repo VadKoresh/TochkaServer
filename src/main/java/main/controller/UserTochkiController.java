@@ -44,7 +44,7 @@ public class UserTochkiController {
     @GetMapping("/4page/{id}")
     public ResponseEntity getOneForPage(@PathVariable long id){
         try {
-            return ResponseEntity.ok(userTochkiService.getOneForPage(id));
+            return ResponseEntity.ok(userTochkiService.getOne(id));
         } catch (PlayerNotFoundException notFoundException){
             return ResponseEntity.badRequest().body(notFoundException.getMessage());
         }
