@@ -9,12 +9,17 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
+import java.time.LocalTime;
 
 public class GetUpApp {
 
     public void getUp() {
         Thread thread = new Thread(() -> {
             while (true) {
+                LocalTime localTime = LocalTime.now().plusHours(3);
+                if(localTime.getHour() >= 3 && localTime.getHour() < 11){
+                    break;
+                }
                 CloseableHttpClient httpClient = null;
                 CloseableHttpResponse httpResponse = null;
                 try {
