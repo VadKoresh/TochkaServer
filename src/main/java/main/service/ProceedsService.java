@@ -46,4 +46,13 @@ public class ProceedsService {
         }
         return proceedsConvertArrayList;
     }
+
+    public String updateProceeds(ProceedsConvert proceedsConvert) {
+        try {
+            proceedsRepository.save(ProceedsEntity.fromJsonToEntity(proceedsConvert));
+            return "Одновление прошло успешно!";
+        } catch (Exception e){
+            return "Произошла ошибка обновления выручки!";
+        }
+    }
 }

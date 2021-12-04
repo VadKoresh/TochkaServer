@@ -39,4 +39,13 @@ public class ProceedsController {
             return ResponseEntity.badRequest().body("Сервер: " + e.getMessage());
         }
     }
+
+    @PutMapping("/")
+    public ResponseEntity updateProceeds(@RequestBody ProceedsConvert proceedsConvert){
+        try {
+            return ResponseEntity.ok(proceedsService.updateProceeds(proceedsConvert));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body("Сервер: " + e.getMessage());
+        }
+    }
 }
