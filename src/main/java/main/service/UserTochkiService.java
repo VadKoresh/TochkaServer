@@ -112,4 +112,15 @@ public class UserTochkiService {
         userTochkiRepository.save(userTochkiEntity);
         return "Пользователь зарегистрирован!";
     }
+
+    public UserTochkiEntity findUserTochkiToSurname(String surnameUser) throws Exception {
+        List<UserTochkiEntity> userTochkiEntityList = userTochkiRepository.findAllBySurname(surnameUser);
+        if (userTochkiEntityList.size() > 1){
+            throw new Exception("Найдено несколько пользователей с такой фамилией");
+        } else if (userTochkiEntityList.size() == 0) {
+            throw new Exception("Пользователя с таким именем не найдено");
+        }else {
+            return userTochkiEntityList.stream().findFirst().get();
+        }
+    }
 }

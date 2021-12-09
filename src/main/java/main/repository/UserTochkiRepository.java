@@ -10,4 +10,5 @@ import java.util.List;
 public interface UserTochkiRepository extends CrudRepository<UserTochkiEntity, Long> {
     UserTochkiEntity findByNumberPhone(String numberPhone);
     List<UserTochkiEntity> findAllByNumberPhoneIsNotNull();
+    List<UserTochkiEntity> findAllBySurname(String surnameUser);
 }

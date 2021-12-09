@@ -98,6 +98,16 @@ public class UserTochkiController {
         }
     }
 
+    @GetMapping("/gettosurname/{surnameUser}")
+    public ResponseEntity findUserTochkiToSurname(@PathVariable String surnameUser){
+        try {
+            return ResponseEntity.ok(userTochkiService.findUserTochkiToSurname(surnameUser));
+        }
+        catch (Exception exception) {
+            return ResponseEntity.badRequest().body("Сервер: " + exception.getMessage());
+        }
+    }
+
     @GetMapping("/4desktopapp")
     public ResponseEntity getAllForDesktopApp(){
         try {
